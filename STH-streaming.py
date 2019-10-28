@@ -67,8 +67,6 @@ img2 = np.array([
 
 
 mxt2 = siamxt.MaxTreeAlpha(img2,Bc)
-#your code here    
-print (time.clock() - start)
 
 mxt1.node_index=np.concatenate((mxt1.node_index,np.zeros([1,4,4],np.int)),axis=0)
 new_img=img2[2,:,:]
