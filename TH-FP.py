@@ -14,14 +14,11 @@ Created on Thu Jun 13 15:24:35 2019
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import metrics
-from spatial_extent_func import *
-from project_functions import *
+from functions import *
 import siamxt 
-from sklearn.model_selection import cross_val_score
 from sklearn.metrics import f1_score
 import pickle
 from sklearn.model_selection import GridSearchCV
-import pickle
 
 def mean_gray_image(imarray):
     Bc = np.ones((3, 3), dtype=bool)
@@ -64,13 +61,7 @@ def area_image(imarray):
         #area_img=np.array(area_img,dtype=np.uint16)
     return area_img
 def data_prepare(gt,input):
-    # class colors values for morbihan
-    #firstclass=2
-    #secondclass = 13
-    #thirdclass = 16
-    #forthtclass = 19
-    #fifthclass = 6
-    #class colors values for morbihan
+    #class index
     firstclass=1
     secondclass = 2
     thirdclass = 3
