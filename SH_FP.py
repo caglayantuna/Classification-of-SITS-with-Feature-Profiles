@@ -29,7 +29,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.metrics import f1_score
 from sklearn.model_selection import GridSearchCV
 
-def area_image_cube(imarray):
+def area_image_img(imarray):
     Bc = np.ones((3, 3), dtype=bool)
 
     mxt = siamxt.MaxTreeAlpha(imarray,Bc)
@@ -37,21 +37,21 @@ def area_image_cube(imarray):
     area_img=area[mxt.node_index]
     area_img=np.reshape(area_img,[area_img.shape[0],area_img.shape[1],1])
     return area_img
-def volume_cube(imarray):
+def volume_img(imarray):
     Bc = np.ones((3, 3), dtype=bool)
     mxt = siamxt.MaxTreeAlpha(imarray, Bc)
     volume=mxt.computeVolume()
     volume_img =volume[mxt.node_index]
     volume_img=np.reshape(volume_img,[volume_img.shape[0],volume_img.shape[1],1])
     return volume_img
-def mean_gray_cube(imarray):
+def mean_gray_img(imarray):
     Bc = np.ones((3, 3), dtype=bool)
     mxt = siamxt.MaxTreeAlpha(imarray, Bc)
     mean=mxt.computeNodeGrayAvg()
     mean_img =mean[mxt.node_index]
     mean_img=np.reshape(mean_img,[mean_img.shape[0],mean_img.shape[1],1])
     return mean_img
-def height_gray_cube(imarray):
+def height_gray_img(imarray):
     Bc = np.ones((3, 3), dtype=bool)
     mxt = siamxt.MaxTreeAlpha(imarray, Bc)
     mean=mxt.computeHeight()
@@ -59,15 +59,8 @@ def height_gray_cube(imarray):
     height_img=np.reshape(height_img,[height_img.shape[0],height_img.shape[1],1])
     return height_img
 
-def data_prepare(gt,input):
-   # class colors values for toulouse
-    #firstclass=7
-    #secondclass = 13
-    #thirdclass = 16
-    #forthtclass = 8
-    #fifthclass = 6
-    
-    #class colors values for morbihan
+def data_prepare(gt,input):    
+    #class index
     firstclass=1
     secondclass = 2
     thirdclass = 3
@@ -107,7 +100,6 @@ def RFclassification(train,test,trainlabel,testlabel):
              }
     grid_clf = GridSearchCV(clf, param_grid, cv=5)
     grid_clf.fit(train, trainlabel)
-    #y_pred = grid_clf.predict(test)
     best_grid = grid_clf.best_estimator_
     y_pred=best_grid.predict(test)
     print(f1_score(testlabel, y_pred, average=None)) 
@@ -147,39 +139,38 @@ if __name__ == "__main__":
 
     #feature profile
     #area
-    featmax=area_image_cube(imsingletrain)
-    featmin=area_image_cube(imsingletrain.max()-imsingletrain)
+    featmax=area_image_img(imsingletrain)
+    featmin=area_image_img(imsingletrain.max()-imsingletrain)
     #height
-    #featmax=height_gray_cube(imsingletrain)
-    #featmin=height_gray_cube(imsingletrain.max()-imsingletrain)
+    #featmax=height_gray_img(imsingletrain)
+    #featmax=height_gray_img(imsingletrain)
+    #featmin=height_gray_img(imsingletrain.max()-imsingletrain)
     #volume
-    #featmax=volume_cube(imsingletrain)
-    #featmin=volume_cube(imsingletrain.max()-imsingletrain)
+    #featmax=volume_img(imsingletrain)
+    #featmin=volume_img(imsingletrain.max()-imsingletrain)
     #mean
-    #featmax=mean_gray_cube(imsingletrain)
-    #featmin=mean_gray_cube(imsingletrain.max()-imsingletrain)
+    #featmax=mean_gray_img(imsingletrain)
+    #featmin=mean_gray_img(imsingletrain.max()-imsingletrain)
     
     imsingletrainup=np.reshape(imsingletrain,[imsingletrain.shape[0],imsingletrain.shape[1],1])
-    #fptrain= np.concatenate((imarraytrain,featmax,featmin,imsingletrain),axis=2)
     fptrain= np.concatenate((imsingletrainup,featmax,featmin),axis=2)
     train, trainlabel=data_prepare(gttrain, fptrain)
     
     #feature profile
     #area
-    featmax=area_image_cube(imsingletest)
-    featmin=area_image_cube(imsingletest.max()-imsingletest)
+    featmax=area_image_img(imsingletest)
+    featmin=area_image_img(imsingletest.max()-imsingletest)
     #height
-    #featmax=height_gray_cube(imsingletest)
-    #featmin=height_gray_cube(imsingletest.max()-imsingletest)  
+    #featmax=height_gray_img(imsingletest)
+    #featmin=height_gray_img(imsingletest.max()-imsingletest)  
     #volume
-    #featmax=volume_cube(imsingletest)
-    #featmin=volume_cube(imsingletest.max()-imsingletest)
+    #featmax=volume_img(imsingletest)
+    #featmin=volume_img(imsingletest.max()-imsingletest)
     #mean
-    #featmax=mean_gray_cube(imsingletest)
-    #featmin=mean_gray_cube(imsingletest.max()-imsingletest)
+    #featmax=mean_gray_img(imsingletest)
+    #featmin=mean_gray_img(imsingletest.max()-imsingletest)
     
     imsingletestup=np.reshape(imsingletest,[imsingletest.shape[0],imsingletest.shape[1],1])
-    #fptest= np.concatenate((imarraytest,featmax,featmin,imsingletest),axis=2)
     fptest= np.concatenate((imsingletestup,featmax,featmin),axis=2)
     test, testlabel=data_prepare(gttest, fptest)
     #classification
