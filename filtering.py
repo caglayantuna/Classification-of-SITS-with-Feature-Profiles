@@ -7,13 +7,16 @@ def im_show(a):
     plt.figure()
     plt.imshow(a, cmap='gray')
     plt.show()
-
+a=1500
+b=1800
+c=2300
+d=2600
 Image1 = geoimread('20180507clipped.tif')
 imarray1=geoImToArray(Image1)
 imarray1[imarray1>255]=255
 imarray1=np.array(imarray1,dtype=np.uint8)
 im1=np.reshape(imarray1,[imarray1.shape[0],imarray1.shape[1]])
-im1=im1[1400:1700,2000:2300]
+im1=im1[a:b,c:d]
 
 
 Image2 = geoimread('20180623clipped.tif')
@@ -21,7 +24,7 @@ imarray2=geoImToArray(Image2)
 imarray2[imarray2>255]=255
 imarray2=np.array(imarray2,dtype=np.uint8)
 im2=np.reshape(imarray2,[imarray2.shape[0],imarray2.shape[1]])
-im2=im2[1400:1700,2000:2300]
+im2=im2[a:b,c:d]
 
 
 Image3 = geoimread('20180806clipped.tif')
@@ -29,17 +32,17 @@ imarray3=geoImToArray(Image3)
 imarray3[imarray3>255]=255
 imarray3=np.array(imarray3,dtype=np.uint8)
 im3=np.reshape(imarray3,[imarray3.shape[0],imarray3.shape[1]])
-im3=im3[1400:1700,2000:2300]
+im3=im3[a:b,c:d]
 
 im_show(im1)
 im_show(im2)
 im_show(im3)
 
-merged=np.concatenate((imarray1[1400:1700,2000:2300],imarray2[1400:1700,2000:2300],imarray3[1400:1700,2000:2300]),axis=2)
+merged=np.concatenate((imarray1[a:b,c:d],imarray2[a:b,c:d],imarray3[a:b,c:d]),axis=2)
 #max tree 
 Bc = np.ones((3,3,3), dtype=bool)
 tree1 = siamxt.MaxTreeAlpha(merged, Bc)
-t=1000 #threshold
+t=800 #threshold
 a=attribute_area_filter(tree1,t)
 
 
@@ -80,11 +83,3 @@ imsave('sthmerged.png',a)  #sth composite
 
 mergedth=np.concatenate((np.reshape(b,[b.shape[0],b.shape[1],1]),np.reshape(c,[c.shape[0],c.shape[1],1]),np.reshape(d,[d.shape[0],d.shape[1],1])),axis=2)
 imsave('thmerged.png',mergedth)
-
-
-
-
-#tophat
-
-imsave('differencesth.png',merged-a)
-('differenceth.png',merged-np.reshape(b,[b.shape[0],b.shape[1],1]),np.reshape(c,[c.shape[0],c.shape[1],1]),np.reshape(d,[d.shape[0],d.shape[1],1]))
