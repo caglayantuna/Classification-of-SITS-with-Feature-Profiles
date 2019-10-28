@@ -1,9 +1,7 @@
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import metrics
-from spatial_extent_func import *
-from project_functions import *
+from functions import *
 import siamxt 
-from sklearn.model_selection import cross_val_score
 from sklearn.metrics import f1_score
 from sklearn.model_selection import GridSearchCV
 
@@ -38,14 +36,7 @@ def height_gray_cube(imarray):
     return height_img
 
 def data_prepare(gt,input):
-    # class colors values for toulouse
-    #firstclass=7
-    #secondclass = 13
-    #thirdclass = 16
-    #forthtclass = 8
-    #fifthclass = 6
-    
-    #class colors values for morbihan
+    #class index
     firstclass=1
     secondclass = 2
     thirdclass = 3
@@ -87,7 +78,7 @@ def data_prepare(gt,input):
 def RFclassification(train,test,trainlabel,testlabel):
     clf = RandomForestClassifier()
     param_grid = {
-                 'n_estimators': [100, 200, 300],
+                 'n_estimators': [10, 20, 30],
              }
     grid_clf = GridSearchCV(clf, param_grid, cv=5)
     grid_clf.fit(train, trainlabel)
