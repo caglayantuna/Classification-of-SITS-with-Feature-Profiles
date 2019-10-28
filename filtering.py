@@ -1,5 +1,5 @@
 import siamxt
-from project_functions import *
+from functions import *
 from scipy import stats
 from scipy.misc import imsave
 
