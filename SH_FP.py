@@ -96,7 +96,8 @@ def data_prepare(gt,input):
 def RFclassification(train,test,trainlabel,testlabel):
     clf = RandomForestClassifier()
     param_grid = {
-                 'n_estimators': [10, 20, 30],
+                 'n_estimators': [100, 200, 300],
+                     'max_depth': [80, 90, 100],
              }
     grid_clf = GridSearchCV(clf, param_grid, cv=5)
     grid_clf.fit(train, trainlabel)
