@@ -38,14 +38,7 @@ def height_gray_cube(imarray):
     return height_img
 
 def data_prepare(gt,input):
-   # class colors values for toulouse
-    #firstclass=7
-    #secondclass = 13
-    #thirdclass = 16
-    #forthtclass = 8
-    #fifthclass = 6
-    
-    #class colors values for morbihan
+    #class index
     firstclass=1
     secondclass = 2
     thirdclass = 3
@@ -81,11 +74,11 @@ def data_prepare(gt,input):
 def RFclassification(train,test,trainlabel,testlabel):
     clf = RandomForestClassifier()
     param_grid = {
-                 'n_estimators': [10, 20, 30],
+                 'n_estimators': [100, 200, 300],
+                     'max_depth': [80, 90, 100],
              }
     grid_clf = GridSearchCV(clf, param_grid, cv=5)
     grid_clf.fit(train, trainlabel)
-    #y_pred = grid_clf.predict(test)
     best_grid = grid_clf.best_estimator_
     y_pred=best_grid.predict(test)
     print(f1_score(testlabel, y_pred, average=None)) 
