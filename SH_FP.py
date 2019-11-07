@@ -5,25 +5,13 @@ Created on Wed Oct 23 17:33:58 2019
 @author: caglayan
 """
 
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jun 13 20:22:39 2019
 
-@author: caglayantuna
-"""
 
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jun 13 15:24:35 2019
-
-@author: caglayan
-"""
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import metrics
 from spatial_extent_func import *
-from project_functions import *
+from functions import *
 import siamxt 
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import f1_score
