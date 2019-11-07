@@ -96,7 +96,8 @@ def data_prepare(gt,input):
 def RFclassification(train,test,trainlabel,testlabel):
     clf = RandomForestClassifier()
     param_grid = {
-                 'n_estimators': [10, 20, 30],
+                 'n_estimators': [100, 200, 300],
+                     'max_depth': [80, 90, 100],
              }
     grid_clf = GridSearchCV(clf, param_grid, cv=5)
     grid_clf.fit(train, trainlabel)
@@ -105,8 +106,8 @@ def RFclassification(train,test,trainlabel,testlabel):
     #y_pred=best_grid.predict(test_features)
     print("Accuracy:", metrics.accuracy_score(testlabel, y_pred))
     print(f1_score(testlabel, y_pred, average=None)) 
-    filename = 'finalized_model.sav'
-    pickle.dump(grid_clf, open(filename, 'wb'))
+    #filename = 'finalized_model.sav'
+    #pickle.dump(grid_clf, open(filename, 'wb'))
 if __name__ == "__main__":
     Image = geoimread('data/gtdordogne.tif')
 
