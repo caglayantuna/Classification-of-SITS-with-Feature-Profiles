@@ -67,19 +67,13 @@ imsave('results/filt3th.png',d)
 
 
 #color composition
-#merged=np.concatenate((imarray1[1500:1700,2000:2200],imarray2[1500:1700,2000:2200],imarray3[1500:1700,2000:2200]),axis=2)
-#merged=np.concatenate((b,c,d),axis=2)
+merged=np.concatenate((b,c,d),axis=2)
 imsave('results/origcmerged.png',merged) #original
 imsave('sthmerged.png',a)  #sth composite
-
 
 mergedth=np.concatenate((np.reshape(b,[b.shape[0],b.shape[1],1]),np.reshape(c,[c.shape[0],c.shape[1],1]),np.reshape(d,[d.shape[0],d.shape[1],1])),axis=2)
 imsave('results/thmerged.png',mergedth)
 
-
-
-
 #tophat
-
 imsave('differencesth.png',merged-a)
 ('differenceth.png',merged-np.reshape(b,[b.shape[0],b.shape[1],1]),np.reshape(c,[c.shape[0],c.shape[1],1]),np.reshape(d,[d.shape[0],d.shape[1],1]))
