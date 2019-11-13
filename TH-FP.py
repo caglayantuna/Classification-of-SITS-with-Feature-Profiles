@@ -5,12 +5,7 @@ Created on Thu Oct 24 10:26:25 2019
 @author: caglayan
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jun 13 15:24:35 2019
 
-@author: caglayan
-"""
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import metrics
