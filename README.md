@@ -14,4 +14,5 @@ SH_FP.py: This file is used for classification for time series images.We are bui
 
 baseline.py: As a baseline, we are using original NDVI pixel values for classification.
 
+Data: There is a stacked NDVI image set and its reference data created by CESBIO France Land cover map. We used another dataset and ground truth in the paper but we are resticted to share this data.
 
